@@ -1,0 +1,316 @@
+%-------------------------
+% Rezume, a latex resume template for developers
+% Author : Nanu Panchamurthy
+% Based off of: https://github.com/sb2nov/resume
+% License : MIT
+
+% Hope this resume template helps you land an awesome job. If you found this helpful, please consider starring the github repo here, .
+%-------------------------
+
+
+
+%------------PACKAGES----------------
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{verbatim} % reimplements the "verbatim" and "verbatim*" environments
+
+\usepackage{titlesec} % provides an interface to sectioning commands i.e. custom elements
+
+\usepackage{color} % provides both foreground and background color management
+
+\usepackage{enumitem} % provides control over enumerate, itemize and description
+
+\usepackage{fancyhdr} % provides extensive facilities for constructing headers, footers and also controlling their use
+
+\usepackage{tabularx} % defines an environment tabularx, extension of "tabular" with an extra designator x, paragraph like column whose width automatically expands to fill the width of the environment
+
+\usepackage{latexsym} % provides mathematical symbols
+
+\usepackage{marvosym} % provides martin vogel's symbol font which contains various symbols
+
+\usepackage[empty]{fullpage} % sets margins to one inch and removes headers, footers etc..
+
+\usepackage[hidelinks]{hyperref} % removes color and shadow of hyperlinks
+
+\usepackage[normalem]{ulem} % provides "\ul" (uline) command which will break at line breaks
+
+\usepackage[english]{babel} % provides culturally determined typographical rules for wide range of languages
+%-----------------------------------------
+
+\input glyphtounicode % converts glyph names to unicode
+\pdfgentounicode=1 % ensures pdfs generated are ats readable
+
+%----------FONT OPTIONS-------------------
+\usepackage[default]{sourcesanspro} % uses the font source sans pro
+\urlstyle{same} % changes url font from default urlfont to font being used by the document
+%-----------------------------------------
+
+
+%----------MARGIN OPTIONS-----------------
+\pagestyle{fancy} % set page style to one configured by fancyhdr
+\fancyhf{} % clear all header and footer fields
+
+\renewcommand{\headrulewidth}{0in} % sets thickness of linerule under header to zero
+\renewcommand{\footrulewidth}{0in} % sets thickness of linerule over footer to zero
+
+\setlength{\tabcolsep}{0in} % sets thickness of column separator in tables to zero
+
+% origin of the document is one inch from the top and from and the left
+% oddsidemargin and evensidemargin both refer to the left margin
+% right margin is indirectly set using oddsidemargin
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\topmargin}{-0.5in}
+
+\addtolength{\textwidth}{1.0in} % sets width of text area in the page to one inch
+\addtolength{\textheight}{1.0in} % sets height of text area in the page to one inch
+
+\raggedbottom{} % makes all pages the height of current page, no extra vertical space added
+\raggedright{} % makes all pages the width of current page, no extra horizontal space added
+%------------------------------------------
+
+
+%--------SECTIONING COMMANDS---------
+% \titleformat{<command>}
+%   [<shape>]{<format>}{<label>}{<sep>}
+%     {<before-code>}[<after-code>]
+
+% command is the sectioning command to be redefined
+% shape is the style of the font; scshape stands for small caps style
+% format is the format to be applied to whole title- label and text; absent here
+% label defines the label
+% sep is the horizontal separation between label and title body
+% before-code is the code to be executed before
+% after-code is the code to be executed after
+
+\titleformat{\section}
+  {\scshape\large}{}
+    {0em}{\color{blue}}[\color{black}\titlerule\vspace{0pt}]
+%-------------------------------------
+
+
+%--------REDEFINITIONS----------------
+% redefines the style of the bullet point
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+% redefines the underline depth to 2pt
+\renewcommand{\ULdepth}{2pt}
+%-------------------------------------
+
+
+%--------CUSTOM COMMANDS--------------
+%\vspace{} defines a vertical space of given size, modifying this in custom commands can help stretch or shrink resume to remove or add content
+
+% resumeItem renders a bullet point
+\newcommand{\resumeItem}[1]{
+  \item\small{#1}
+}
+
+% commands to start and end itemization of resumeItem, rightmargin set to 0.11in to avoid the overflow of resumetItem beyond whatever resumeItemHeading is being used
+\newcommand{\resumeItemListStart}{\begin{itemize}[rightmargin=0.11in]}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+
+% resumeSectionType renders a bolded type to be used under a section, used as skill type here, middle element is used to keep ":"s in the same vertical line
+\newcommand{\resumeSectionType}[3]{
+  \item\begin{tabular*}{0.96\textwidth}[t]{
+    p{0.15\linewidth}p{0.02\linewidth}p{0.81\linewidth}
+  }
+    \textbf{#1} & #2 & #3
+  \end{tabular*}\vspace{-2pt}
+}
+
+% resumeTrioHeading renders three elements in three columns with second element being italicized and first element bolded, can be used for projects with three elements
+\newcommand{\resumeTrioHeading}[3]{
+  \item\small{
+    \begin{tabular*}{0.96\textwidth}[t]{
+      l@{\extracolsep{\fill}}c@{\extracolsep{\fill}}r
+    }
+      \textbf{#1} & \textit{#2} & #3
+    \end{tabular*}
+  }
+}
+
+% resumeQuadHeading renders four elements in a two columns with the second row being italicized and first element of first row bolded, can be used for experience and projects with four elements
+\newcommand{\resumeQuadHeading}[4]{
+  \item
+  \begin{tabular*}{0.96\textwidth}[t]{l@{\extracolsep{\fill}}r}
+    \textbf{#1} & #2 \\
+    \textit{\small#3} & \textit{\small #4} \\
+  \end{tabular*}
+}
+
+% resumeQuadHeadingChild renders the second row of resumeQuadHeading, can be used for experience if different roles in the same company need to added
+\newcommand{\resumeQuadHeadingChild}[2]{
+  \item
+  \begin{tabular*}{0.96\textwidth}[t]{l@{\extracolsep{\fill}}r}
+    \textbf{\small#1} & {\small#2} \\
+  \end{tabular*}
+}
+
+% commands to start and end itemization of resumeQuadHeading, lefmargin for left indent of 0.15in for resumeItems
+\newcommand{\resumeHeadingListStart}{
+  \begin{itemize}[leftmargin=0.15in, label={}]
+}
+\newcommand{\resumeHeadingListEnd}{\end{itemize}}
+%-------------------------------------------
+
+
+%__________________RESUME____________________
+% You can rearrange sections in any order you may prefer
+\begin{document}
+
+%-----------CONTACT DETAILS------------------
+% Make sure all the details are correct, you can add more links in the first row of second column if needed
+
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+  \textbf{\Huge Pawan Mishra \vspace{2pt}} & % row = 1, col = 1
+  Location: Austin, Tx, US \\ % row = 1, col = 2
+  \href{https://pawanmishra.github.io}{\uline{pawanmishra.github.io}} $|$ % row = 2, col = 1
+  \href{https://www.linkedin.com/in/rkpawan/}{\uline{LinkedIn}} $|$ % row = 2, col = 1
+  \href{https://github.com/pawanmishra}{\uline{GitHub}} %$|$ % row = 2, col = 1
+  \href{}{} & % row = 2, col = 1
+  \href{mailto:rk.pawan@gmail.com}{\uline{rk.pawan@gmail.com}} $|$ % row = 2, col = 2
+  737-202-7676 \\ % row = 2, col = 2
+\end{tabular*}
+%--------------------------------------------
+
+
+%-----------SUMMARY--------------------------
+% Keep this short, simple and straigth to point
+
+\section{BigData \& Cloud Specialist}
+\small{
+  Cloud and Big Data enthusiast with 16+ years of experience in building innovative, large-scale healthcare applications. Passionate about devising creative problem-solving methods for challenging tasks, and committed to learning new technologies and tools.
+}
+%--------------------------------------------
+
+%----------------OTHERS----------------------
+% You can add your acheivements, accolades, certifications etc. here.
+
+\section{Highlights}
+  \resumeItemListStart{}
+    \resumeItem{{Experienced in designing \& building bigdata analytics pipeline in the public cloud}}
+    \resumeItem{{Led the development, maintenance, and promotion of Spark platform components across the organization}}
+    \resumeItem{{Hands-on development experience in Spark, Scala, AWS, and other associated technologies}}
+    \resumeItem{{Experienced in all phases of product development, from roadmap planning to production rollout}}
+    \resumeItem{{Accelerated big data and cloud adoption by training and assisting other teams}}
+    \resumeItem{{Active in organizational activities like recruitment, immigration and visa sponsorship, internship, employee engagement activities }}
+    \resumeItem{{Work authorization - US Permanent Resident}}
+    %\resumeItem{\href{}{\uline{Microsoft Certified: Azure Developer Associate}}}
+    %\resumeItem{\href{}{\uline{AWS Certified Developer - Associate}}}
+  \resumeItemListEnd{}
+%--------------------------------------------
+
+%-----------EXPERIENCE-----------------------
+% Distill all your talking points to small bullet points which follow the pattern "challenge-action-result" for maximum efficiency. Try to quantify (use numbers) your points whenver possible, highlist words of importance
+
+\section{Experience}
+\resumeHeadingListStart{}
+  \resumeQuadHeading{Director of Engineering}{Nov 2021 -- Present}
+  {Optum}{Austin, Tx, USA}
+    \resumeItemListStart{}
+      \resumeItem{Currently leading OptumInsight's provider engineering data platform teams}
+      \resumeItem{Technical owner of OI's provider engg. data platform AWS account having an annual budget of 1.5 million USD}
+      \resumeItem{Led initiatives that resulted in an annual cloud cost reduction of approximately 1 million USD }
+      \resumeItem{Solution Architect for OptumInsight's Azure based analytics product Enterprise Intelligence Platform(EIP)}
+      \resumeItem{Initiated multiple cloud-oriented modernization efforts across applications}
+      \resumeItem{Scaled the pipeline to support 40+ clients with 1000s of monthly builds processing billions of healthcare records}
+      \resumeItem{Helped the organization meet its products data refresh related SLA goals}
+      \resumeItem{Implemented low-code etl authoring framework using SQL \& Spark}
+      \resumeItem{Lead product roadmap, cloud cost, resource allocation, and project assignment related activities}
+      \resumeItem{\textbf{Skills} - Scala, Spark, AWS, Azure, Databricks, Healthcare Analytic}
+    \resumeItemListEnd{}
+
+  \resumeQuadHeading{Sr. Mgr. Data Engineering}{March 2018 -- Nov 2021}
+  {Optum}{Austin, Tx, USA}
+    \resumeItemListStart{}
+      \resumeItem{Led the platform foundation team and successfully migrated OADW data pipeline from Oracle to AWS.}
+      \resumeItem{Designed and implemented multiple Spark based libraries that accelerated the cloud migration}
+      \resumeItem{Implemented JSQLParser based library for converting SQL schema from one dialect to another}
+      \resumeItem{Implemented Spark based lightweight and highly efficient data importer library}
+      %\resumeItem{Decoupled application development from schema management by introducing schema-as-contract pattern}
+      %\resumeItem{Architected the OADW's AWS data pipeline architecture  }
+      \resumeItem{Introduced multiple application development and production release related processes}
+      \resumeItem{Optimized ETLs, reducing overall data load time from days to hours}
+      \resumeItem{Implemented measures like Immunization Compliance, Provider Mastering, etc. in Spark}
+      \resumeItem{\textbf{Skills} - Scala, Spark, Python, AWS, Healthcare Analytic, Maven, Jenkins, HDFS, Terraform, PostgreSQL, Oracle}
+    \resumeItemListEnd{}
+
+  \resumeQuadHeading{Senior Software Engineer}{October 2015 -- March 2021}
+  {Advisory Board Company}{Austin, Tx, USA}
+    \resumeItemListStart{}
+        \resumeItem{Added support for running industry standard MS \& 3M APR DRG groupers as Spark jobs against AWS EMR}
+        \resumeItem{Implemented custom Hive authenticator for supporting LDAP authentication}
+        \resumeItem{Implemented healthcare metrics like percentage readmission, cost \& charges as Spark based enrichment}
+        \resumeItem{\textbf{Skills} - Scala, Spark, Python, AWS, Healthcare Analytic, Maven, Jenkins, HDFS}
+    \resumeItemListEnd{}
+
+
+   \resumeQuadHeading{Associate Development Manager}{September 2013 -- June 2015}
+  {Advisory Board Company}{Chennai, TamilNadu, India}
+    \resumeItemListStart{}
+        \resumeItem{Implemented centralized, multi-tenant patient data repository with real-time data loading and RESTful endpoints for querying and analytics}
+        \resumeItem{Implemented multi-threaded worker engine for processing SQL Server Service broker queues}
+    \resumeItemListEnd{}
+
+   \resumeQuadHeading{Analyst}{July 2012 -- August 2013}
+  {Barclays Capital}{Pune, Maharashtra, India}
+    \resumeItemListStart{}
+        \resumeItem{ Worked on two applications: Meteor (precious and base metal trade capture) and CDRP (commodities risk calculation).}
+        \resumeItem{Implemented web based frontend for the application. Focused on application performance related issues.}
+    \resumeItemListEnd{}
+
+   \resumeQuadHeading{Senior Software Engineer}{August 2010 -- June 2012}
+  {Advisory Board Company}{Chennai, TamilNadu, India}
+    \resumeItemListStart{}
+        \resumeItem{Worked on market-leading analytics software Crimson Continuum Care, enabling hospital-physician collaboration for quality and cost savings.}
+        \resumeItem{Re-wrote measure mapping engine. Improved overall performance by significantly reducing number of database hits}
+    \resumeItemListEnd{}
+
+   \resumeQuadHeading{Senior System Engineer}{October 2007 -- July 2010}
+  {Infosys}{Bangalore, Karnataka, India}
+    \resumeItemListStart{}
+        \resumeItem{Successfully migrated applications running on commercial workflow engine over to WF 3.0.}
+        \resumeItem{Received awards \& accolades for introducing new technologies \& good software development practices in the team(s).}
+    \resumeItemListEnd{} 
+\resumeHeadingListEnd{}
+%---------------------------------------------
+
+%\section{Prior Experience}
+%\resumeHeadingListStart{}
+%\resumeQuadHeading{Associate Development Manager}{Chennai, TamilNadu, India}
+%{Advisory Board Company}{September 2013 -- June 2015}
+%\resumeQuadHeading{Analyst}{Pune, Maharashtra, India}
+%{Barclays Capital}{July 2012 -- August 2013}
+%\resumeQuadHeading{Senior Software Engineer}{Chennai, TamilNadu, India}
+%{Advisory Board Company}{August 2010 -- June 2012}
+%\resumeQuadHeading{Senior System Engineer}{Bangalore, Karnataka, India}
+%{Infosys}{October 2007 -- July 2010}
+%\resumeHeadingListEnd{}
+%---------------------------------------------
+
+%--------------SKILLS------------------------
+% Add or remove resumeSectionTypes according to your needs
+
+\section{Skills}
+  \resumeHeadingListStart{}
+    \resumeSectionType{Languages}{:}{Scala, C\#, Java, Python}
+    \resumeSectionType{Frameworks}{:}{Spark, Hive, Apache Iceberg, Hadoop, HDFS, Databricks}
+    \resumeSectionType{Tech Stack}{:}{BigData, AWS, Azure, .Net, Java}
+    \resumeSectionType{Databases}{:}{PostgreSQL, Dynamodb, SQL Server, Oracle}
+    \resumeSectionType{Dev Tools}{:}{Git, Sonar, Maven, Jenkins}
+  \resumeHeadingListEnd{}
+%--------------------------------------------
+
+
+%-----------EDUCATION-------------------------
+% Mention your CGPA, if its good, in the first row of second column
+
+\section{Education}
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{Dr. MGR Deemed University}{Chennai, TamilNadu, India}
+    {Bachelor of Science in Computer Science. Gold medalist with 9.2 CGPA.}{May 2003 -- May 2007}
+  \resumeHeadingListEnd{}
+%---------------------------------------------
+
+\end{document}
+
